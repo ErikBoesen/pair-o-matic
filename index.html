@@ -1,0 +1,371 @@
+<!Doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pair-O-Matic</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:100,400,600" rel="stylesheet">
+
+	<link rel="icon" type="image/png" href="O.png"/>
+
+	<style type="text/css">
+		body {
+			font-family: "Montserrat", Verdana, sans-serif;
+		}
+		#sign {
+			width: 60vw;
+			height: 45vh;
+
+			position: absolute;
+
+			left: 50%;
+			margin-left: -32.5vw;
+
+			top: 50%;
+			margin-top: -30vh;
+
+			border: 2vw solid;
+			border-color: #F5E663;
+			
+			background-color: #FF7E6B;
+			border-radius: 3vw;
+
+
+		}
+		#slot_table {
+			width: 100%;
+			height: 80%;
+
+			margin-left: auto;
+			margin-right: auto;
+
+			margin-top: 5vh;
+
+			border-spacing: 4vw;
+		}
+		#slot_table td {
+			width: 50%;
+			display: table-cell;
+			
+			vertical-align: middle;
+			text-align: center;
+
+			border-radius: 1vw;
+			border: 0.7vw solid #9C3848;
+
+			font-size: 3em;
+			font-weight: bold;
+
+			overflow-y: hidden;
+
+			background-color: #47A8BD;
+			color: white;
+		}
+
+		.roll {
+			width: 80%;
+			background-color: green;
+			margin-left: auto;
+			margin-right: auto;
+
+		}
+
+		#lever {
+			width: 10vw;
+			height: 10vh;
+			background-color: green;
+			position: absolute;
+		}
+		#new_lever img {
+			width: 4vw;
+		}
+		#new_lever {			
+			position: absolute;
+			right: 0;
+
+			margin-right: 17vw;
+			margin-top: 26vh;
+
+			transform: rotate(20deg);
+
+			transition: transform 1s ease;
+
+			z-index: -10;
+		}
+		
+		#lever_click {
+			width: 20vw;
+			height: 50vh;
+
+			position: absolute;
+
+			right: 0;
+			margin-top: 20vh;
+
+		}
+		#names {
+
+			position: absolute;
+			bottom: 0;
+
+			width: 50vw;
+			height: 22vh;
+
+			margin-bottom: 2vh;
+			left: 50%;
+			margin-left: -25vw;
+
+			vertical-align: text-top;
+			text-align: center;
+			
+			display: flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+		}
+
+		#check {
+			 width: 10vw;
+			 height: 10vh;
+			 background-color: green;
+		}
+
+		#title {
+			width: 50vw;
+			position: absolute;
+			left: 50%;
+			margin-left: -25vw;
+		}
+		#title img {
+			width: 100%;
+		}
+		#subtitle {
+			color: #9C3848;
+		}
+
+		#win {
+			position: absolute;
+			left: 0;
+
+			color: #0A8754;
+			font-size: 3.5em;
+
+			width: 5vw;
+
+			margin-left: 4vw;
+
+			visibility: hidden;
+		}
+		#lose {
+			position: absolute;
+			right: 0;
+
+			color: #9C3848;
+			font-size: 3.5em;
+
+			width: 5vw;
+			margin-right: 10vw;
+
+			visibility: hidden;
+		}		
+		#a {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+
+			color: #0A8754;
+			font-size: 8em;
+
+			width: 14vw;
+
+			margin-left: 4vw;
+			margin-bottom: 4vh;
+
+			visibility: hidden;
+		}
+		#f {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+
+			color: #9C3848;
+			font-size: 8em;
+
+			width: 7vw;
+
+			margin-right: 4vw;
+			margin-bottom: 4vh;
+			visibility: hidden;
+		}
+
+	</style>
+
+	<script type="text/javascript">
+
+		//E2D44F
+		var shuffle_times = 10000;
+		var spin_speed = 80;
+		var wait_time = 1000;
+
+		var mathHL = ["Julianna", "Nick C", "Casandre", "Thomas", "Katie", "Johnny", "Nikita", "David", "Connor", "Brendan", "Bella", "Max", "Lorien", "Ryan", "Erik", "Hien", "Arianna", "Mithi", "Andrew", "Chris", "Sami", "Ethan", "Acacia", "Sigrid", "Linlin", "Nick W", "Adam", "Miles J", "Miles L", "James"];
+
+		var done = false;
+
+		function on_load() {
+			setInterval(function () {
+				flash();
+			}, 500);
+		}
+
+		function spin() {
+				document.getElementById("win").style.visibility = "hidden";
+				document.getElementById("lose").style.visibility = "hidden";
+				document.getElementById("a").style.visibility = "hidden";
+				document.getElementById("f").style.visibility = "hidden";
+
+				if (Math.floor(mathHL.length/2) > 0) {
+					change_names(10);
+				} else {
+					if (mathHL[0] != undefined) {
+						var name_pair = mathHL[0];
+						create_div("names", name_pair);
+					}
+					done = true;
+				}
+				
+		}
+
+		function shuffle(a) {
+			for (var j = 0; j < shuffle_times; j++) {
+				var ind1 = Math.floor(Math.random() * (a.length));
+				var ind2 = Math.floor(Math.random() * (a.length));
+
+				var temp = a[ind1];
+				a[ind1] = a[ind2];
+				a[ind2] = temp; 
+			}
+		}
+
+		function change_names(l) {
+			setTimeout(function () {
+					shuffle(mathHL);
+					document.getElementById("left").innerHTML = mathHL[0];
+					document.getElementById("right").innerHTML = mathHL[1];
+
+
+					if(l > 0) {
+						change_names(l-1);
+					} else {
+						update_names();
+					}
+				}, spin_speed);
+		}
+
+		function update_names() {
+			var rand1 = Math.floor(Math.random() * 8);
+
+					if(rand1 == 0) {
+						document.getElementById("win").style.visibility = "visible";
+					} else if (rand1 == 1) {
+						document.getElementById("lose").style.visibility = "visible";
+					} else if (rand1 == 2) {
+						document.getElementById("a").style.visibility = "visible";
+					} else if (rand1 == 3) {
+						document.getElementById("f").style.visibility = "visible";
+					}
+
+			var name_pair = document.getElementById("left").innerHTML + " - " + document.getElementById("right").innerHTML;
+			create_div("names", name_pair);
+
+			delete_array_items()
+		}
+
+		function delete_array_items() {
+			mathHL.shift();
+			mathHL.shift();
+
+			var left = Math.ceil(mathHL.length/2);
+			
+			if (left == 0) {
+				escape();
+			}
+
+			redo(left);
+		}
+
+		function redo(l) {
+			setTimeout(function () {
+				spin();
+
+
+			}, wait_time);
+		}
+
+		function escape() {
+
+		}
+
+		function lever_on() {
+			document.getElementById("new_lever").style.transform = "rotate(120deg)";
+		}
+		function lever_off() {
+			document.getElementById("new_lever").style.transform = "rotate(20deg)";
+		}
+
+		function create_div(id, text) {
+			var div = document.createElement("DIV");
+			var node = document.createTextNode(text);
+			div.appendChild(node);
+
+			var element = document.getElementById(id);
+			element.appendChild(div);
+		}
+
+		function flash () {
+			var checkCol = (window.getComputedStyle(document.getElementById('sign')).borderColor);
+			if (checkCol == "rgb(245, 230, 99)") {
+				document.getElementById("sign").style.borderColor = "#E8DA5C";
+			} else {
+				document.getElementById("sign").style.borderColor = "#F5E663";
+			}	
+		}
+	</script>
+</head>
+<body onload="on_load()">
+	<div id="title">
+		<img src="PairOMatic.png"/>
+	</div>
+	<div id="sign">
+		<table id="slot_table">
+			<tr>
+				<td id="left">
+					WINNER
+				</td>
+				<td id="right">
+					LOSER
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="new_lever"><img src="Stick.png"/></div>
+	<div id="lever_click" onmouseover="lever_on()" onmouseout="lever_off()" onclick="spin()"></div>
+
+	<div id="names">
+		<div id="subtitle"><strong>WINNER - LOSER</strong></div>
+	</div>
+
+	<div id="win">
+		<strong>WIN WIN WIN</strong>
+	</div>
+
+	<div id="lose">
+		<strong>LOSE LOSE LOSE</strong>
+	</div>
+	<div id="a">
+		<strong>A+</strong>
+	</div>
+	<div id="f">
+		<strong>F</strong>
+	</div>
+
+</body>
+</html>
