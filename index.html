@@ -3,12 +3,9 @@
 <html>
 <head>
 	<title>Pair-O-Matic</title>
-
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:100,400,600" rel="stylesheet">
-
-	<link rel="icon" type="image/png" href="O.png"/>
-
-	<style type="text/css">
+	<link rel="icon" type="image/png" href="O.png">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,400,600">
+	<style>
 		body {
 			font-family: "Montserrat", Verdana, sans-serif;
 		}
@@ -26,11 +23,9 @@
 
 			border: 2vw solid;
 			border-color: #F5E663;
-			
+
 			background-color: #FF7E6B;
 			border-radius: 3vw;
-
-
 		}
 		#slot_table {
 			width: 100%;
@@ -46,7 +41,7 @@
 		#slot_table td {
 			width: 50%;
 			display: table-cell;
-			
+
 			vertical-align: middle;
 			text-align: center;
 
@@ -67,9 +62,7 @@
 			background-color: green;
 			margin-left: auto;
 			margin-right: auto;
-
 		}
-
 		#lever {
 			width: 10vw;
 			height: 10vh;
@@ -79,7 +72,7 @@
 		#new_lever img {
 			width: 4vw;
 		}
-		#new_lever {			
+		#new_lever {
 			position: absolute;
 			right: 0;
 
@@ -92,7 +85,7 @@
 
 			z-index: -10;
 		}
-		
+
 		#lever_click {
 			width: 20vw;
 			height: 50vh;
@@ -117,7 +110,7 @@
 
 			vertical-align: text-top;
 			text-align: center;
-			
+
 			display: flex;
 			flex-direction: column;
 			flex-wrap: wrap;
@@ -166,7 +159,7 @@
 			margin-right: 10vw;
 
 			visibility: hidden;
-		}		
+		}
 		#a {
 			position: absolute;
 			left: 0;
@@ -196,10 +189,8 @@
 			margin-bottom: 4vh;
 			visibility: hidden;
 		}
-
 	</style>
-
-	<script type="text/javascript">
+	<script>
 
 		//E2D44F
 		var shuffle_times = 10000;
@@ -231,7 +222,7 @@
 					}
 					done = true;
 				}
-				
+
 		}
 
 		function shuffle(a) {
@@ -241,7 +232,7 @@
 
 				var temp = a[ind1];
 				a[ind1] = a[ind2];
-				a[ind2] = temp; 
+				a[ind2] = temp;
 			}
 		}
 
@@ -284,7 +275,7 @@
 			mathHL.shift();
 
 			var left = Math.ceil(mathHL.length/2);
-			
+
 			if (left == 0) {
 				escape();
 			}
@@ -326,7 +317,7 @@
 				document.getElementById("sign").style.borderColor = "#E8DA5C";
 			} else {
 				document.getElementById("sign").style.borderColor = "#F5E663";
-			}	
+			}
 		}
 	</script>
 </head>
